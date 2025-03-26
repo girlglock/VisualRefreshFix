@@ -5,7 +5,7 @@
  * @description Minor fixes for the Visual Refresh
 **/
 
-/* Annoying stuff I want to hide */
+/* Hide stuff */
 button[aria-label="Send a gift"],
 button[aria-label="Open sticker picker"],
 div[aria-label^="Click to react with"],
@@ -17,8 +17,18 @@ div[class^=channelAppLauncher_],
   display: none;
 }
 
-div[class^=jumpToPresentBar] {
-  right: 16px !important;
+
+/* Fix user panel symetry */
+section.panels_c48ade {
+  justify-content: center;
+  margin-left: 74px;
+  width: calc(100% - 90px) !important;
+  bottom: 0;
+  border-radius: 0;
+}
+
+.visual-refresh .container__37e49 {
+  padding: 6px;
 }
 
 /* Lower chat field + put typing indicators on top */
@@ -28,11 +38,12 @@ main[class^="chatContent"]>form[class^="form"] {
 }
 
 main[class^="chatContent"]>form[class^="form"]:not(:has(div[class^="typing"])) {
-  margin-top: calc(24px + (var(--space-xs) * 2)) !important;
+  margin-top: calc(7px + (var(--space-xs) * 2)) !important;
 }
 
 main[class^="chatContent"]>form[class^="form"] div[class^="channelTextArea"] {
-  margin-bottom: var(--space-xs) !important;
+  margin-bottom: calc(-8px + (var(--space-xs) * 2)) !important;
+
 }
 
 div[class^="typing"] {
@@ -61,21 +72,60 @@ h3>span>time[aria-label^="Today at"]::before {
 
 .visual-refresh {
 
-  /* Remove user profile overlap from server list */
-  section.panels_c48ade {
-    margin-left: 64px;
-    width: calc(100% - 72px) !important;
-    bottom: 0;
-    border-radius: 0;
+  /* Fix titlebar */
+  div.subtitleContainer_f75fb0,
+  main.container__133bf section.container__9293f {
+    width: calc(100% - 172px);
   }
 
-  .visual-refresh .container__37e49 {
-    height: 48px;
-    padding: 6px;
+  div.page_c48ade {
+    &:not(:has(> div.chat_f75fb0)) {
+      anchor-name: --vr-header-snippet;
+    }
+
+    &>div.chat_f75fb0 {
+      anchor-name: --vr-header-snippet;
+    }
   }
 
-  nav.wrapper_ef3116.guilds_c48ade {
-    margin-bottom: 0;
+  div.base_c48ade {
+    grid-template-rows: [top] 0 [titleBarEnd] min-content [noticeEnd] 1fr [end];
+
+    &:has(div.bar_c38106 > div.trailing_c38106 > *:nth-child(3)) {
+
+      & div.subtitleContainer_f75fb0,
+      & main.container__133bf section.container__9293f {
+        width: calc(100% - 174px);
+      }
+    }
+
+    &>div.bar_c38106 {
+      position: absolute;
+      position-anchor: --vr-header-snippet;
+      top: 0;
+      right: anchor(right);
+      width: anchor-size(width);
+      padding: 0;
+    }
+
+    & div.trailing_c38106 {
+      background: var(--background-base-lower);
+      border: none;
+      border-bottom: 1px solid var(--border-subtle);
+      height: var(--custom-channel-header-height);
+    }
+  }
+
+  :not(:has(div.page_c48ade > div.chat_f75fb0)) div.base_c48ade>div.bar_c38106 {
+    right: 0 !important;
+  }
+
+  ul[data-list-id="guildsnav"]>div.itemsContainer_ef3116 {
+    margin-top: 16px;
+  }
+
+  div.topic__6ec1a {
+    -webkit-app-region: no-drag;
   }
 
   /* Context Menu Padding*/
